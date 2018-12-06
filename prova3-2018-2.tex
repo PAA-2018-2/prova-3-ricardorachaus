@@ -31,7 +31,32 @@ CIC 117536 - Projeto e Análise de Algoritmos \\[.5cm]  Terceira Prova \\[.5cm] 
 
  
   \resposta{
-    Escreva aqui sua solução.
+    Consideremos a seguinte expressão cuja é uma instância de 2-SAT:
+    
+    $$(\neg x_1 \lor x_2) \land (\neg x_2 \lor x_3) \land (x_1 \lor \neg x_3) \land (x_3 \lor x_2)$$
+    
+    Dessa forma, obtemos duas afirmações:
+    
+    \begin{enumerate}
+        \item Se G contém um caminho de $\phi$ até $\psi$, então também contém o caminho de $\neg \psi$ até $\neg \phi$.
+        
+        Para provarmos, consideremos que o caminho de $\phi$ a $\psi$ é $\phi \rightarrow P_1 \rightarrow ... \rightarrow P_k \rightarrow \psi$. Agora, pela construção de G, se há uma aresta $(x, y)$, então tem um aresta $(\neg x, \neg y)$. Logo, temos $(\neg \psi, \neg P_k), ..., (\neg P_1, \neg \phi)$. Portanto, temos um caminho de $\neg \psi$ até $\neg \phi$.
+        
+        \item Uma cláusula conjuntiva de dois valores $\Upsilon$ é insatisfazível se e somente se existe um $x$ tal que:
+        
+        \begin{enumerate}
+            \item há um caminho de $x$ a $\neg x$ no grafo.
+            \item há um caminho de $\neg x$ a $x$ no grafo
+        \end{enumerate}
+        
+        Suponhamos que existam os caminhos $x$ a $\neg x$ e $\neg x$ a $x$ para algum $x \in G$, mas também existe uma associação satisfatível $\rho(x_1,x_2...x_n)$ para a cláusula $\Upsilon$.
+        
+        Para o caso (i), consideremos que $\rho(x_1,x_2...x_n)$ tal que $x$ é verdadeiro. Assim o caminho de $x$ a $\neg x$ é $x \rightarrow ... \rightarrow \phi \rightarrow \psi \rightarrow \neg x$. Agora, se existe uma aresta entre $X$ e $Y$ do grafo G, então existe $(\neg A \lor B)$ em $\Upsilon$. A aresta de $X$ a $Y$ indica que $X$ é verdadeiro, então $Y$ também deve ser. Como $x$ é verdadeiro, todos os literais entre ele e $\phi$ também devem ser. Da mesma forma, de $\psi$ a $\neg x$ devem ser falsos, pois $\neg x$ é falso. Isso resulta em uma aresta entre $\phi \land \psi$, onde $\phi$ é verdadeiro e $\psi$ é falso. Por consequência, a cláusula $(\neg \phi \lor \psi)$ é falsa, contradizendo a afirmação de $\rho(x_1,x_2...x_n)$ para $\Upsilon$.
+        
+        Já para o caso (ii), consideremos que $\rho(x_1,x_2...x_n)$ tal que $x$ é falso. Assim, a prova é semelhante ao caso (i).
+    \end{enumerate}
+    
+    Portanto, havendo a existência de um caminho $x$ a $\neg x$ e/ou $\neg x$ a $x$ no grafo, assim podendo utilizar algoritmos como BFS ou DFS, cujos levam tempo polinomial, $\Theta(V + E)$. Assim, provamos que 2-SAT $\in$ P.
   }
   
 \item {\bf (2.5 pontos)} Em aula, assumimos que SAT é um problema
@@ -68,7 +93,23 @@ $$\xymatrix{
 E todas as reduções (de 3-SAT para $Q'$, de $Q'$ para $Q$ e de $Q$ para HAM-CYCLE) devem ser detalhadas na sua solução.
 
 \resposta{
-    Escreva aqui sua solução.
+    Para provarmos que HAM-CYCLE é NP-Completo, precisamos mostrar que 3-SAT $\leq_p$ HAM-CYCLE.
+    
+    Assim, consideremos uma instância \textit{I} do 3-SAT, com as variáveis $x_1, x_2, ..., x_n$ e as cláusulas $C_1, C_2, ..., C_n$. Criamos um grafo $G_v$ com que representa as variáveis, enquanto criamos um outro grafo $G_c$ que representa as cláusulas. Vale observar que cada cláusula $C_k$ apresenta-se no formato:
+    
+    \begin{center}
+        $(x_k \lor x_{k+1} \lor x_{k+2})$
+    \end{center}
+    
+    Com isso, unimos as variáveis do grafo $G_v$ com as cláusulas do grafo $G_c$, de forma a criar uma relação do tipo:
+    
+    \begin{center}
+        $\phi = C_1 \land C_2 \land ... \land C_n$.
+    \end{center}
+    
+    Um caminho Hamiltoniano atribui uma associação de verdade para cada variável, dependendo de qual direção a corrente de conexões é transversada.
+    
+    Para haver um ciclo Hamiltoniano é preciso que cada nó cláusula do grafo seja visitado. Dessa forma, podemos visitar apenas as cláusulas que satisfazem a condição (ao atribuir o valor de verdade para cada uma). Assim se temos um ciclo Hamiltoniano, conseguindo satisfazer a condição da instância \textit{I} do 3-SAT precisa ter um ciclo Hamiltoniano.
   }
   
 \item {\bf (2.5 pontos)} Considere o seguinte jogo em um grafo
