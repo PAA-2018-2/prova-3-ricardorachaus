@@ -147,8 +147,19 @@ E todas as reduções (de 3-SAT para $Q'$, de $Q'$ para $Q$ e de $Q$ para HAM-CY
   intermediárias, caso existam, devem ser incluídas na solução.
 
   \resposta{
-    Escreva aqui sua solução.
+    Provaremos que FNCX-SAT $\in$ P. Para isso, observaremos o comportamento do XOR ou disjunção exclusiva. Assim, temos a seguinte tabela-verdade:
+    
+    $$\begin{array}{|l|l|l|1|1|}\hline
+      a & b & \neg a \land b & a \land \neg b & (\neg a \land b) \lor (a \land \neg b) \\ \hline
+      F & F & F & F & F \\ \hline
+      F & V & V & F & V \\ \hline
+      V & F & F & V & V \\ \hline
+      V & V & F & F & F \\ \hline
+  \end{array}$$
+
+    Como pode ser visto, é possível transformar a disjunção exclusiva em uma disjunção de 2 literais. Com isso, podemos tratar o FNCX-SAT como um caso especial do 2-SAT, assim, provando que o FNCX-SAT $\in$ P.
   }
+  
 \end{enumerate}
 
 \end{document}
